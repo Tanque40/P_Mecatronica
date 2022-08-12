@@ -1,0 +1,82 @@
+1285  git clone git@github.com:Tanque40/P_Mecatronica.git
+ 1286  cd P_Mecatronica
+ 1287  ls -al
+ 1288  nvim .
+ 1289  cd clases/P_Mecatronica
+ 1290  mkdir Practica01
+ 1291  rm -r Practica01
+ 1292  ls
+ 1293  mkdir Practica01
+ 1294  mkdir Dir1
+ 1295  cd Dir1
+ 1296  mkdir Dir11 Dir 12
+ 1297  ls
+ 1298  rm -r 12 Dir
+ 1299  ls
+ 1300  mkdir Dir12
+ 1301  cd Dir11
+ 1302  mkdir Dir111 Dir112 Dir113
+ 1303  touch Dir111/arc111.txt
+ 1304  ls Dir111
+ 1305  touch Dir112/arc112.txt
+ 1306  cd ..
+ 1307  cd Dir12
+ 1308  mkdir Dir121
+ 1309  touch arch121.txt
+ 1310  mkdir Dir1212
+ 1311  mv -r Dir1212 Dir121
+ 1312  mv Dir1212 Dir121
+ 1313  ls
+ 1314  cd Dir121
+ 1315  ls
+ 1316  touch Dir1212/arch1212.txt
+ 1317  cd --
+ 1318  cd clases/P_Mecatronica
+ 1319  tree
+ 1320  mv Dir1/Dir11/Dir112/arc112.txt Dir1/Dir11/Dir112/arc112.py
+ 1321  tree
+ 1322  nvim .
+ 1323  ls
+ 1324  mv Practica01 Dir1
+ 1325  ls
+ 1326  cd Dir1
+ 1327  ls
+ 1328  tree
+ 1329  cd ..
+ 1330  cd Dir1
+ 1331  cd ..
+ 1332  ls
+ 1333  mv Dir1/Practica01 ./
+ 1334  ls
+ 1335  mv Dir1 Practica01
+ 1336  ls
+ 1337  tree
+ 1338  cp -r Practica01/Dir1 Practica01/Dir1_cp
+ 1339  tree
+ 1340  mv Practica01/Dir1_cp Practica01/Copia_dir
+ 1341  tree
+ 1342  nvim .
+ 1343  cd clases/P_Mecatronica
+ 1344  cat Practica01/Dir1/Dir11/Dir111/arch111.txt
+ 1345  git status
+ 1346  git add .
+ 1347  git status
+ 1348  sudo snap install arduino
+ 1349  git commit -m 'Practica 1: Comandos básicos de linux'
+ 1350  git push
+ 1351  rm -r Practica01/Copia_dir
+ 1352  git add .
+ 1353  git commit -m 'Practica 1: Eliminando Copia_dir'
+ 1354  git push
+ 1355  clear
+ 1356  sudo arduino
+ 1357  arduino
+ 1358  sudo usermod -a -G dialout bruno
+ 1359  reboot
+ 1360  cd clases/P_Mecatronica
+ 1361  top
+ 1362  tree
+ 1363  fetch
+ 1364  git fetch
+ 1365  git status
+
