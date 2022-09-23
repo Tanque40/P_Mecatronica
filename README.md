@@ -21,3 +21,13 @@ El resultado de la actividad se puede ver [aquí](/Practica01/), al final de cue
 
 ## Practica 02
 
+Esta práctica tiene como objetivos:
+
+- Conocer las plataformas, herramientas y ambientes más comunes para el desarrollo de sistemas mecatrónicos basados en microcontroladores.
+- Identificar los elementos básicos de la arquitectura de un microcontrolador digital.
+- Identificar  los  módulos  que  componen  a  la  tarjeta  de  desarrollo  Arduino  y  sus interconexiones básicas.
+- Realizar una comparativa entre las implementaciones en código de bajo y alto nivel, destacando las ventajas y pertinencia de cada una de las estrategias de programación de microcontroladores.
+
+La primera actividad fue respecto a armar el siguiente circuito:
+
+![Captura Circuito a armar 1](res/images/practica02/capturaCircuito1.png)
