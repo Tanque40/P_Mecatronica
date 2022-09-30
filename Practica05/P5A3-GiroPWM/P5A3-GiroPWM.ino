@@ -1,4 +1,3 @@
-#include <Wire.h>
 #define POT A0
 #define MotA 10
 #define MotB 11
