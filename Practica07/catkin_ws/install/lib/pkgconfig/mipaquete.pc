@@ -1,0 +1,8 @@
+prefix=/home/bruno/learn/P_Mecatronica/Practica07/catkin_ws/install
+
+Name: mipaquete
+Description: Description of mipaquete
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
