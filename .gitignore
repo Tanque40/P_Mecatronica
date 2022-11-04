@@ -1,1 +1,6 @@
+# Vscode Stuff
 .vscode
+
+# ROS Stuff
+**/catkin_ws/build/**
+**/catkin_ws/devel/**
