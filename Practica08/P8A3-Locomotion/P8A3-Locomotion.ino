@@ -35,10 +35,13 @@ void setup() {
 
     pinMode(SPEED_A_MOTOR, OUTPUT);
     pinMode(SPEED_B_MOTOR, OUTPUT);
+
+    Serial.begin(9000);
 }
 
 void loop() {
     if (i == 0) {
+        Serial.println('0');
         DriveRobot(1, 1);
     } else if (i == 1) {
         DriveRobot(-1, -1);
@@ -50,7 +53,7 @@ void loop() {
         DriveRobot(0, 0);
         i = -1;
     }
-    i++;
+    i+=1;
     delay(2000);
 }
 
