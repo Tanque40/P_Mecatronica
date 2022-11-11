@@ -13,7 +13,15 @@
 /// @param LSignal values from -1 to 1, the movement of Left tyre
 /// @param RSignal values from -1 to 1, the movement of Right tyre
 void DriveRobot(float LSignal, float RSignal);
+
+/// @brief Control the movement of the left tyre of the bot
+/// @param LSignal values from -1 to 1, means the direction of the movement
+/// @param Speed the speed of the movement
 void DriveLeftRobot(float LSignal, float Speed);
+
+/// @brief Control the movement of the right tyre of the bot
+/// @param RSignal values from -1 to 1, means the direction of the movement
+/// @param Speed the speed of the movement
 void DriveRightRobot(float RSignal, float Speed);
 
 int i;
@@ -48,7 +56,7 @@ void loop() {
 
 void DriveRobot(float LSignal, float RSignal) {
     DriveLeftRobot(LSignal, SPEED_VALUE);
-    DriveRightRobot(RSignal, SPEED_VALUE)
+    DriveRightRobot(RSignal, SPEED_VALUE);
 }
 
 void DriveLeftRobot(float LSignal, float Speed) {
