@@ -24,7 +24,7 @@ void DriveLeftRobot(float LSignal, float Speed);
 /// @param Speed the speed of the movement
 void DriveRightRobot(float RSignal, float Speed);
 
-int i;
+int i = 0;
 
 void setup() {
     pinMode(MotXA_FORWARD, OUTPUT);
