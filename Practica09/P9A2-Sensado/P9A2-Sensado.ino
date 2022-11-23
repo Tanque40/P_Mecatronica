@@ -1,3 +1,5 @@
+#include <LiquidCrystal_I2C.h>
+#include <Wire.h>
 #include <math.h>
 
 #include "DHT.h"
@@ -20,6 +22,8 @@
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 /// @brief Read the ADC value from voltage divisor
 /// @details Read the ADC value from voltage divisor, save the value
@@ -53,12 +57,28 @@ int UltraSonicSensorDistance(long duration);
 /// @return The distance in centimeters
 double SharpDistance(int readValue);
 
+/// @brief Read the temperature and saves in varibale
+void temperature_sensor();
+float temperature;
+
+/// @brief Print in LCD the light_dif value
+///        and show if we have battery
+void LCD_print();
+
 void setup() {
     pinMode(ULTRASONIC_ECHO, INPUT);
     pinMode(ULTRASONIC_TRIGGER, OUTPUT);
+
+    lcd.init();
+    lcd.backlight();
 }
 
 void loop() {
+    voltageSensor();
+    lightSensor();
+    distanceSensor();
+    LCD_print();
+    delay(2000);
 }
 
 void voltageSensor() {
@@ -119,4 +139,22 @@ double SharpDistance(int readValue) {
     distance = 7391.9 * pow(readValue, -1.219);
 
     return distance;
+}
+
+void temperature_sensor() {
+    temperature = dht.readTemperature();
+}
+
+void LCD_print() {
+    lightSensor();
+
+    lcd.setCursor(0, 0);
+    lcd.print(light_dif);
+
+    lcd.setCursor(0, 1);
+    if (battery) {
+        lcd.print("Light Follower");
+    } else {
+        lcd.print("No battery");
+    }
 }
