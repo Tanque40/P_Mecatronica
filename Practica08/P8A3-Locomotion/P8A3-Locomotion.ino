@@ -1,7 +1,7 @@
-#define MotXA_FORWARD 3
-#define MotXA_BACKWARD 5
+#define MotXA_FORWARD 4
+#define MotXA_BACKWARD 3
 
-#define MotXB_FORWARD 4
+#define MotXB_FORWARD 5
 #define MotXB_BACKWARD 6
 
 #define SPEED_A_MOTOR 2
@@ -24,7 +24,7 @@ void DriveLeftRobot(float LSignal, float Speed);
 /// @param Speed the speed of the movement
 void DriveRightRobot(float RSignal, float Speed);
 
-int i;
+int i = 0;
 
 void setup() {
     pinMode(MotXA_FORWARD, OUTPUT);
@@ -36,24 +36,19 @@ void setup() {
     pinMode(SPEED_A_MOTOR, OUTPUT);
     pinMode(SPEED_B_MOTOR, OUTPUT);
 
-    Serial.begin(9000);
+    i = 0;
 }
 
 void loop() {
-    if (i == 0) {
-        Serial.println('0');
-        DriveRobot(1, 1);
-    } else if (i == 1) {
-        DriveRobot(-1, -1);
-    } else if (i == 2) {
-        DriveRobot(1, -1);
-    } else if (i == 3) {
-        DriveRobot(-1, 1);
-    } else if (i == 4) {
-        DriveRobot(0, 0);
-        i = -1;
-    }
-    i+=1;
+    DriveRobot(1, 1);
+    delay(2000);
+    DriveRobot(1, -1);
+    delay(2000);
+    DriveRobot(-1, -1);
+    delay(2000);
+    DriveRobot(-1, 1);
+    delay(2000);
+    DriveRobot(0, 0);
     delay(2000);
 }
 
