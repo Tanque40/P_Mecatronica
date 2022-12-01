@@ -42,19 +42,23 @@ void setup() {
 void loop() {
     DriveRobot(1, 1);
     delay(2000);
-    DriveRobot(1, -1);
-    delay(2000);
-    DriveRobot(-1, -1);
-    delay(2000);
-    DriveRobot(-1, 1);
-    delay(2000);
-    DriveRobot(0, 0);
-    delay(2000);
 }
 
 void DriveRobot(float LSignal, float RSignal) {
-    DriveLeftRobot(LSignal, SPEED_VALUE);
-    DriveRightRobot(RSignal, SPEED_VALUE);
+    float FinalSpeed = SPEED_VALUE * 255;
+
+    if (LSignal == 1 && RSignal == 1) {
+        digitalWrite(MotXA_FORWARD, HIGH);
+        digitalWrite(MotXA_BACKWARD, LOW);
+        analogWrite(SPEED_A_MOTOR, FinalSpeed);
+
+        digitalWrite(MotXB_FORWARD, HIGH);
+        digitalWrite(MotXB_BACKWARD, LOW);
+        analogWrite(SPEED_B_MOTOR, FinalSpeed);
+    } else if (LSignal == -1 && RSignal == -1) {
+    } else if (LSignal == -1 && RSignal == 1) {
+    } else if (LSignal == 1 && RSignal == -1) {
+    }
 }
 
 void DriveLeftRobot(float LSignal, float Speed) {
@@ -62,11 +66,11 @@ void DriveLeftRobot(float LSignal, float Speed) {
     if (LSignal == 1) {
         digitalWrite(MotXA_FORWARD, HIGH);
         digitalWrite(MotXA_BACKWARD, LOW);
-        analogWrite(SPEED_A_MOTOR, FinalSpeed);
+        analogWrite(SPEED_A_MOTOR, 255);
     } else if (LSignal == -1) {
         digitalWrite(MotXA_FORWARD, LOW);
         digitalWrite(MotXA_BACKWARD, HIGH);
-        analogWrite(SPEED_A_MOTOR, FinalSpeed);
+        analogWrite(SPEED_A_MOTOR, 255);
     } else {
         FinalSpeed = 0;
         digitalWrite(MotXA_FORWARD, HIGH);
@@ -80,11 +84,11 @@ void DriveRightRobot(float RSignal, float Speed) {
     if (RSignal == 1) {
         digitalWrite(MotXB_FORWARD, HIGH);
         digitalWrite(MotXB_BACKWARD, LOW);
-        analogWrite(SPEED_B_MOTOR, FinalSpeed);
+        analogWrite(SPEED_B_MOTOR, 255);
     } else if (RSignal == -1) {
         digitalWrite(MotXB_FORWARD, LOW);
         digitalWrite(MotXB_BACKWARD, HIGH);
-        analogWrite(SPEED_B_MOTOR, FinalSpeed);
+        analogWrite(SPEED_B_MOTOR, 255);
     } else {
         FinalSpeed = 0;
         digitalWrite(MotXB_FORWARD, HIGH);
