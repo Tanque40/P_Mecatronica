@@ -1,38 +1,38 @@
 #include <LiquidCrystal_I2C.h>  //Incluimos la libreria para comunicarnos por I2C con el LCD
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
-#define motA1 4     // Pin de control del motor A
-#define motA2 3     // Pin de control del motor A
-#define motB1 6     // Pin de control del motor b
-#define motB2 5     // Pin de control del motor b
-#define enable1 2   // Enable motor 1
-#define enable2 7   // Enable motor 2
-#define voltaje A1  // medidor de voltaje
-#define fotoD A2    // primer fotoresistor
-#define fotoI A3    // segundo fotoresistor
-#define fotoA A4    // tercer fotoresistor
-#define fotoRC A5   // cuarto fotoresistor
-#define trig 53     // pin de trigger
-#define echo 51     // pin de echo
-#define sharpP A8   // primer sensor sharp
-#define sharpS A9   // segundo sensor sharp
+#define MOTOR_A_FORWARD 4      // Pin de control del motor A
+#define MOTOR_A_BACKWARD 3     // Pin de control del motor A
+#define MOTOR_B_FORWARD 6      // Pin de control del motor b
+#define MOTOR_A_BACKWARD 5     // Pin de control del motor b
+#define ENABLE_1 2             // Enable motor 1
+#define ENABLE_2 7             // Enable motor 2
+#define VOLTAGE A1             // medidor de VOLTAGE
+#define FOTORESISTOR_RIGHT A2  // primer fotoresistor
+#define FOTORESISTOR_LEFT A3   // segundo fotoresistor
+#define FOTORESISTOR_BACK A4   // tercer fotoresistor
+#define FOTORESISTOR_RC A5     // cuarto fotoresistor
+#define TRIGGER 53             // pin de TRIGGERger
+#define ECHO 51                // pin de ECHO
+#define SHARP_FIRST A8         // primer sensor sharp
+#define SHARP_SECOND A9        // segundo sensor sharp
 
-float voltajeI, voltajeA, voltajeRC, voltajeD, vsharpP, vsharpS, voltajeSistema, diferencia_luz, US_Sensor;  // definimos las variables que guardaran lo obtenido por los pines
+float VOLTAGEI, VOLTAGEA, VOLTAGERC, VOLTAGED, vSHARP_FIRST, vSHARP_SECOND, VOLTAGESistema, diferencia_luz, US_Sensor;  // definimos las variables que guardaran lo obtenido por los pines
 int battery;
 boolean obs;
 
 void setup() {
     // put your setup code here, to run once:
-    // Definimos la comunicaciòn serial e inicializamos todos nuestros puertos como salidas para el motor y el de echo del ultrasonico como entrada. La pantalla lcd igual se inicia
+    // Definimos la comunicaciòn serial e inicializamos todos nuestros puertos como salidas para el motor y el de ECHO del ultrasonico como entrada. La pantalla lcd igual se inicia
     Serial.begin(9600);
-    pinMode(motA1, OUTPUT);
-    pinMode(motA2, OUTPUT);
-    pinMode(motB1, OUTPUT);
-    pinMode(motB2, OUTPUT);
-    pinMode(enable1, OUTPUT);
-    pinMode(enable2, OUTPUT);
-    pinMode(trig, OUTPUT);
-    pinMode(echo, INPUT);
+    pinMode(MOTOR_A_FORWARD, OUTPUT);
+    pinMode(MOTOR_A_BACKWARD, OUTPUT);
+    pinMode(MOTOR_B_FORWARD, OUTPUT);
+    pinMode(MOTOR_A_BACKWARD, OUTPUT);
+    pinMode(ENABLE_1, OUTPUT);
+    pinMode(ENABLE_2, OUTPUT);
+    pinMode(TRIGGER, OUTPUT);
+    pinMode(ECHO, INPUT);
 
     lcd.init();
 }
@@ -53,119 +53,119 @@ void loop() {
 // Mètodo que genera los movimientos por rueda dependiendo de las variables de entrada, mandando señales digitales al puente h
 void driveRobot(float LSignal, float RSignal) {
     if (LSignal < 0 && RSignal < 0) {
-        digitalWrite(motB2, HIGH);
-        digitalWrite(motB1, LOW);
-        digitalWrite(enable2, 40);
-        digitalWrite(motA2, HIGH);
-        digitalWrite(motA1, LOW);
-        digitalWrite(enable1, 85);
+        digitalWrite(MOTOR_A_BACKWARD, HIGH);
+        digitalWrite(MOTOR_B_FORWARD, LOW);
+        digitalWrite(ENABLE_2, 40);
+        digitalWrite(MOTOR_A_BACKWARD, HIGH);
+        digitalWrite(MOTOR_A_FORWARD, LOW);
+        digitalWrite(ENABLE_1, 85);
     }
     if (LSignal < 0 && RSignal == 0) {
-        digitalWrite(motB2, LOW);
-        digitalWrite(motB1, LOW);
-        digitalWrite(enable2, 0);
-        digitalWrite(motA2, HIGH);
-        digitalWrite(motA1, LOW);
-        digitalWrite(enable1, 85);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_B_FORWARD, LOW);
+        digitalWrite(ENABLE_2, 0);
+        digitalWrite(MOTOR_A_BACKWARD, HIGH);
+        digitalWrite(MOTOR_A_FORWARD, LOW);
+        digitalWrite(ENABLE_1, 85);
     }
     if (LSignal < 0 && RSignal > 0) {
-        digitalWrite(motB2, LOW);
-        digitalWrite(motB1, HIGH);
-        digitalWrite(enable2, 40);
-        digitalWrite(motA2, HIGH);
-        digitalWrite(motA1, LOW);
-        digitalWrite(enable1, 85);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_B_FORWARD, HIGH);
+        digitalWrite(ENABLE_2, 40);
+        digitalWrite(MOTOR_A_BACKWARD, HIGH);
+        digitalWrite(MOTOR_A_FORWARD, LOW);
+        digitalWrite(ENABLE_1, 85);
     }
     if (LSignal == 0 && RSignal == 0) {
-        digitalWrite(motB2, LOW);
-        digitalWrite(motB1, LOW);
-        digitalWrite(enable2, 0);
-        digitalWrite(motA2, LOW);
-        digitalWrite(motA1, LOW);
-        digitalWrite(enable1, 0);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_B_FORWARD, LOW);
+        digitalWrite(ENABLE_2, 0);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_A_FORWARD, LOW);
+        digitalWrite(ENABLE_1, 0);
     }
     if (LSignal == 0 && RSignal < 0) {
-        digitalWrite(motB2, HIGH);
-        digitalWrite(motB1, LOW);
-        digitalWrite(enable2, 40);
-        digitalWrite(motA2, LOW);
-        digitalWrite(motA1, LOW);
-        digitalWrite(enable1, 0);
+        digitalWrite(MOTOR_A_BACKWARD, HIGH);
+        digitalWrite(MOTOR_B_FORWARD, LOW);
+        digitalWrite(ENABLE_2, 40);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_A_FORWARD, LOW);
+        digitalWrite(ENABLE_1, 0);
     }
     if (LSignal == 0 && RSignal > 0) {
-        digitalWrite(motB2, LOW);
-        digitalWrite(motB1, HIGH);
-        digitalWrite(enable2, 40);
-        digitalWrite(motA2, LOW);
-        digitalWrite(motA1, LOW);
-        digitalWrite(enable1, 85);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_B_FORWARD, HIGH);
+        digitalWrite(ENABLE_2, 40);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_A_FORWARD, LOW);
+        digitalWrite(ENABLE_1, 85);
     }
     if (LSignal > 0 && RSignal > 0) {
-        digitalWrite(motB2, LOW);
-        digitalWrite(motB1, HIGH);
-        digitalWrite(enable2, 40);
-        digitalWrite(motA2, LOW);
-        digitalWrite(motA1, HIGH);
-        digitalWrite(enable1, 85);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_B_FORWARD, HIGH);
+        digitalWrite(ENABLE_2, 40);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_A_FORWARD, HIGH);
+        digitalWrite(ENABLE_1, 85);
     }
     if (LSignal > 0 && RSignal == 0) {
-        digitalWrite(motB2, LOW);
-        digitalWrite(motB1, LOW);
-        digitalWrite(enable2, 40);
-        digitalWrite(motA2, LOW);
-        digitalWrite(motA1, HIGH);
-        digitalWrite(enable1, 85);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_B_FORWARD, LOW);
+        digitalWrite(ENABLE_2, 40);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_A_FORWARD, HIGH);
+        digitalWrite(ENABLE_1, 85);
     }
     if (LSignal > 0 && RSignal < 0) {
-        digitalWrite(motB2, HIGH);
-        digitalWrite(motB1, LOW);
-        digitalWrite(enable2, 40);
-        digitalWrite(motA2, LOW);
-        digitalWrite(motA1, HIGH);
-        digitalWrite(enable1, 85);
+        digitalWrite(MOTOR_A_BACKWARD, HIGH);
+        digitalWrite(MOTOR_B_FORWARD, LOW);
+        digitalWrite(ENABLE_2, 40);
+        digitalWrite(MOTOR_A_BACKWARD, LOW);
+        digitalWrite(MOTOR_A_FORWARD, HIGH);
+        digitalWrite(ENABLE_1, 85);
     }
 }
 void voltageSensor() {
-    voltajeSistema = analogRead(voltaje);  // leemos el voltaje de alimentación y si es menor a 650 bits ponemos battery = 0 para alertar de bajo voltage
-    if (voltajeSistema > 650) {
+    VOLTAGESistema = analogRead(VOLTAGE);  // leemos el VOLTAGE de alimentación y si es menor a 650 bits ponemos battery = 0 para alertar de bajo voltage
+    if (VOLTAGESistema > 650) {
         battery = 1;
     } else {
         battery = 0;
     }
 }
 void lightSensor() {
-    voltajeD = analogRead(fotoD);  // Sensamos la luz del medio con cuatro fotoresistores y usamos las de los lados para calcular la diferencia
-    voltajeI = analogRead(fotoI);
-    voltajeA = analogRead(fotoA);
-    diferencia_luz = voltajeD - voltajeI;
+    VOLTAGED = analogRead(FOTORESISTOR_RIGHT);  // Sensamos la luz del medio con cuatro fotoresistores y usamos las de los lados para calcular la diferencia
+    VOLTAGEI = analogRead(FOTORESISTOR_LEFT);
+    VOLTAGEA = analogRead(FOTORESISTOR_BACK);
+    diferencia_luz = VOLTAGED - VOLTAGEI;
     lcd.setCursor(0, 0);
     lcd.print("L: ");
-    lcd.print(voltajeI);
+    lcd.print(VOLTAGEI);
     lcd.setCursor(12, 0);
     lcd.print("D: ");  // En el lcd imprimimos los datos para tener una interfaz del estado del robot
-    lcd.print(voltajeD);
+    lcd.print(VOLTAGED);
     lcd.setCursor(0, 1);
     lcd.print("D: ");
     lcd.print(diferencia_luz);
     lcd.setCursor(8, 1);
     lcd.print("A: ");
-    lcd.print(voltajeA);
+    lcd.print(VOLTAGEA);
 }
 bool distanceSensor() {
-    vsharpP = analogRead(sharpP);
-    vsharpS = analogRead(sharpS);  // Sensamos los objetos que estan proximos a la locomocion con tres sensores (Dos Sharp y uno US)
+    vSHARP_FIRST = analogRead(SHARP_FIRST);
+    vSHARP_SECOND = analogRead(SHARP_SECOND);  // Sensamos los objetos que estan proximos a la locomocion con tres sensores (Dos Sharp y uno US)
 
-    vsharpP = 1990 * (pow(vsharpP, -0.921));  // Funcion de lectura del sharp
-    vsharpS = 1990 * (pow(vsharpS, -0.921));
+    vSHARP_FIRST = 1990 * (pow(vSHARP_FIRST, -0.921));  // Funcion de lectura del sharp
+    vSHARP_SECOND = 1990 * (pow(vSHARP_SECOND, -0.921));
     // Distancia con  ultrasònico
-    digitalWrite(trig, LOW);  // Hacemos el envío y recepción del pulso ultrasonico
+    digitalWrite(TRIGGER, LOW);  // Hacemos el envío y recepción del pulso ultrasonico
     delayMicroseconds(2);
 
-    digitalWrite(trig, HIGH);
+    digitalWrite(TRIGGER, HIGH);
     delayMicroseconds(10);
-    digitalWrite(trig, LOW);
+    digitalWrite(TRIGGER, LOW);
 
-    US_Sensor = pulseIn(echo, HIGH);  // Calculamos la distancia que registro a partir de las lecturas
+    US_Sensor = pulseIn(ECHO, HIGH);  // Calculamos la distancia que registro a partir de las lecturas
     US_Sensor = US_Sensor * 0.0343 / 2;
     if (US_Sensor < 8) {
         obs = true;
@@ -190,7 +190,7 @@ void followlight() {  // En esta función seguiremos la luz haciendo llamar la f
     }
 }
 void lcd_print() {
-    lcd.setCursor(0, 0);  // Imprimimos la diferencia de luz entre el lado derecho y izquierdo y tambien imprimimos el valor de battery
+    lcd.setCursor(0, 0);  // Imprimimos la diferencia de luz entre el lado derECHO y izquierdo y tambien imprimimos el valor de battery
     lcd.print("light_dif: ");
     lcd.print(diferencia_luz);
     lcd.setCursor(0, 1);
